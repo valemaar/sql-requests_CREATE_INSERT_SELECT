@@ -1,0 +1,41 @@
+CREATE TABLE IF NOT EXISTS Genre(
+	id serial PRIMARY KEY,
+	name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Performer(
+	id serial PRIMARY KEY,
+	name VARCHAR(200) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Album(
+	id serial PRIMARY KEY,
+	name VARCHAR(200) NOT NULL,
+	year_release INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS GenreAlbumPerformer(
+	id serial PRIMARY KEY,
+	id_genre INTEGER NOT NULL REFERENCES Genre(id),
+	id_album INTEGER NOT NULL REFERENCES Album(id),
+	id_performer INTEGER NOT NULL REFERENCES Performer(id)
+);
+
+CREATE TABLE IF NOT EXISTS Track(
+	id serial PRIMARY KEY,
+	name VARCHAR(200) NOT NULL,
+	length_track TIME(0) NOT NULL,
+	id_album INTEGER NOT NULL REFERENCES Album(id)
+);
+
+CREATE TABLE IF NOT EXISTS Compilation(
+	id serial PRIMARY KEY,
+	name VARCHAR(500) NOT NULL,
+	year_release INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS TrackCompilation(
+	id serial PRIMARY KEY,
+	id_track INTEGER NOT NULL REFERENCES Track(id),
+	id_compilation INTEGER NOT NULL REFERENCES Compilation(id)
+);
